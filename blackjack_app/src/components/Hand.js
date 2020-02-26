@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const Hand = ({img}) => {
         return (
            <div>

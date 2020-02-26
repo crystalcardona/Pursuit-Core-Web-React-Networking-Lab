@@ -9,10 +9,6 @@ class DeckOfCards extends Component {
         this.fetchId()
     }
 
-    componentDidUpdate() {
-        // this.handleChange()
-    }
-
     fetchId =  async () => {
         try {
             let res = await axios.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
@@ -41,9 +37,17 @@ class DeckOfCards extends Component {
 
     }
 
-    handleClick = async (e) => {
-        this.fetchCards()
+    handleClick = async (deckId) =>{
+        this.fetchId()
+        this.fetchCards(deckId)
+        debugger
+    } 
+
+    handleSubmit = async (e, deckId) => {
+        e.preventDefault()
+        this.fetchCards(deckId)
     }
+
 
     render () {
         console.log(this.state.deckId)
@@ -54,13 +58,15 @@ class DeckOfCards extends Component {
         return (
             <div>
             <h2>BlackJack</h2>
-            <button onClick={this.fetchCards}>Generate Deck</button>
+            <button onClick={this.handleClick}>Generate Deck</button>
             <p>Deck Id:{this.state.deckId} </p>
             <form onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.deckId} onChange={this.handleChange} placeholder={"Insert Deck ID Here"}></input>
-            <button onClick={this.handleClick}>Draw</button>
+            <button>Draw</button>
             </form>
+            <div className="displayCard">
             {cards}
+            </div>
             </div>
         )
     }
