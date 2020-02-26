@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Hand from './Hand'
 
-class DeckOfCards extends Component {
-    state = {deck: [], deckId: "", img: [], inputId: ""}
+class Menu extends Component {
+    state = {deck: [], deckId: "", img: [], draw:""}
 
 
     fetchId =  async () => {
@@ -16,10 +16,11 @@ class DeckOfCards extends Component {
         }
     }
     
-    fetchCards = async (deckId) => {
+    fetchCards = async (deckId, drawCount) => {
         try {
+            const url = 
             deckId = this.state.deckId
-            let res = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
+            let res = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count={drawCount}`)
             this.setState({img: res.data.cards})
             debugger         
         } catch (error) {
@@ -29,20 +30,25 @@ class DeckOfCards extends Component {
         
     }
 
+    hitCard = async (deckId, 1) => {
+        <button>Hit</button>
+        this.
+
+    }
+
     handleChange = async (e) => {
         this.setState({deckId: e.target.value})
 
     }
 
     handleClick = async (deckId) =>{
-        this.fetchId()
-        this.fetchCards(deckId)
+        this.fetchCards(deckId, 2)
         debugger
     } 
 
     handleSubmit = async (e, deckId) => {
         e.preventDefault()
-        this.fetchCards(deckId)
+        this.fetchCards(deckId, 2)
     }
 
 
@@ -53,7 +59,7 @@ class DeckOfCards extends Component {
             return <Hand img={card.image} key={card}/>
         })
         return (
-            <div>
+            <div className="menu">
             <h2>BlackJack</h2>
             <button onClick={this.handleClick}>Generate Deck</button>
             <p>Deck Id:{this.state.deckId} </p>
@@ -70,4 +76,4 @@ class DeckOfCards extends Component {
 }
 
 
-export default DeckOfCards;
+export default Menu;
