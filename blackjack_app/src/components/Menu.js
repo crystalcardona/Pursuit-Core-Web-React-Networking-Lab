@@ -5,9 +5,6 @@ import Hand from './Hand'
 class DeckOfCards extends Component {
     state = {deck: [], deckId: "", img: [], inputId: ""}
 
-    componentDidMount() {
-        this.fetchId()
-    }
 
     fetchId =  async () => {
         try {
