@@ -2,6 +2,7 @@
 import React from 'react'
 import axios from 'axios';
 import Hand from './Hand'
+import './Menu.css'
 
 class Menu extends React.Component {
     state = { deckId: "", img: [], }
@@ -39,7 +40,7 @@ class Menu extends React.Component {
     handleClick = async (deckId, drawCount = 2) =>{
         this.fetchId()
         debugger
-        this.fetchCards(deckId, drawCount = 2)
+        this.fetchCards(deckId, drawCount)
         debugger
     } 
 
@@ -51,6 +52,7 @@ class Menu extends React.Component {
 
     render () {
         console.log(this.state.deckId)
+        const {deckId} = this.state
         let cards = this.state.img.map(card => {
             debugger
             return <Hand img={card.image} key={card}/>
@@ -59,16 +61,19 @@ class Menu extends React.Component {
             <div className="menu">
             <h2>BlackJack</h2>
             <button onClick={this.handleClick}>Generate Deck</button>
-            <p>Deck Id:{this.state.deckId} </p>
+            <p>Deck Id:{deckId} </p>
+            <label>
+            Input Existing Deck
+            </label>
             <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.deckId} onChange={this.handleChange} placeholder={"Insert Deck ID Here"}></input>
+            <input type="text" value={deckId} onChange={this.handleChange} placeholder={"Insert Deck ID Here"}></input>
             <button>Draw</button>
             </form>
             <div className="displayCard">
             {cards}
             </div>
             <div className="hit">
-            <button onClick={(e) => this.fetchCards(this.state.deckId, this.state.drawCount = 1)}>Hit Me</button>
+            <button onClick={(e) => this.fetchCards(deckId, this.drawCount = 1)}>Hit Me</button>
             </div>
             </div>
         )

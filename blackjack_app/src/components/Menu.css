@@ -1,0 +1,6 @@
+.displayCard {
+    display: flex;
+    justify-content: center;
+    size: 40px;
+    background-color: rgb(245, 245, 245, 0.3);
+}
