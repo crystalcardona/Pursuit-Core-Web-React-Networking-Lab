@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+
+import React from 'react'
 import axios from 'axios';
 import Hand from './Hand'
 
-class Menu extends Component {
-    state = {deck: [], deckId: "", img: [], draw:""}
+class Menu extends React.Component {
+    state = { deckId: "", img: [], }
 
 
     fetchId =  async () => {
@@ -11,44 +12,40 @@ class Menu extends Component {
             let res = await axios.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
             this.setState({deckId: res.data.deck_id})
         } catch (error) {
-            this.setState({deckID: ""})
+            this.setState({deckId: ""})
             console.log(error)  
         }
     }
     
-    fetchCards = async (deckId, drawCount) => {
+    fetchCards = async (deckId, drawCount = 2) => {
         try {
-            const url = 
             deckId = this.state.deckId
-            let res = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count={drawCount}`)
+            let res = await axios.get(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${drawCount}`)
             this.setState({img: res.data.cards})
             debugger         
         } catch (error) {
-            this.setState({deck: []})
+            this.setState({img:[]})
             console.log(error)         
         }
         
     }
 
-    hitCard = async (deckId, 1) => {
-        <button>Hit</button>
-        this.
-
-    }
 
     handleChange = async (e) => {
         this.setState({deckId: e.target.value})
 
     }
 
-    handleClick = async (deckId) =>{
-        this.fetchCards(deckId, 2)
+    handleClick = async (deckId, drawCount = 2) =>{
+        this.fetchId()
+        debugger
+        this.fetchCards(deckId, drawCount = 2)
         debugger
     } 
 
-    handleSubmit = async (e, deckId) => {
+    handleSubmit = async (e, deckId, drawCount = 2) => {
         e.preventDefault()
-        this.fetchCards(deckId, 2)
+        this.fetchCards(deckId, drawCount)
     }
 
 
@@ -70,10 +67,15 @@ class Menu extends Component {
             <div className="displayCard">
             {cards}
             </div>
+            <div className="hit">
+            <button onClick={(e) => this.fetchCards(this.state.deckId, this.state.drawCount = 1)}>Hit Me</button>
+            </div>
             </div>
         )
     }
 }
+
+
 
 
 export default Menu;
