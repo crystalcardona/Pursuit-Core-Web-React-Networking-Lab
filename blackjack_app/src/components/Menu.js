@@ -38,7 +38,11 @@ class DeckOfCards extends Component {
 
     handleChange = async (e) => {
         this.setState({deckId: e.target.value})
-        debugger
+
+    }
+
+    handleClick = async (e) => {
+        this.fetchCards()
     }
 
     render () {
@@ -50,13 +54,12 @@ class DeckOfCards extends Component {
         return (
             <div>
             <h2>BlackJack</h2>
-
-            <form onSubmit={this.fetchCards}>
-            <input type="text" value={this.state.deckId} onChange={this.handleChange} placeholder={"Insert Deck ID Here"}></input>
-            <button>Draw</button>
-            </form>
-
             <button onClick={this.fetchCards}>Generate Deck</button>
+            <p>Deck Id:{this.state.deckId} </p>
+            <form onSubmit={this.handleSubmit}>
+            <input type="text" value={this.state.deckId} onChange={this.handleChange} placeholder={"Insert Deck ID Here"}></input>
+            <button onClick={this.handleClick}>Draw</button>
+            </form>
             {cards}
             </div>
         )
